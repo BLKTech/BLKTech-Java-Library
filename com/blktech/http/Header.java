@@ -12,7 +12,7 @@ import java.util.Map;
  *
  * @author instalacion
  */
-class Header extends HashMap<String, String>
+public class Header extends HashMap<String, String>
 {
 
     public Header() 

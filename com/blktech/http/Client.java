@@ -27,7 +27,7 @@ public class Client
     {
         System.setProperty("http.maxRedirects", String.valueOf(deep));
 
-        HttpURLConnection huc = (HttpURLConnection) (request.getUrl()).openConnection();
+        HttpURLConnection huc = (HttpURLConnection) request.getUrl().getURL().openConnection();
         
         huc.setInstanceFollowRedirects(true);
         huc.setDoOutput(true);
@@ -67,11 +67,31 @@ public class Client
     }
     
     
-    public static HashMap<String,String> easyCall(URL url, HashMap<String,String> headers) throws IOException
+    public static HashMap<String,String> easyCall(URL url, HashMap<String,String> headers, String prefix) throws IOException
     {
-        Request request = new Request(Method.HEAD, url, new Header(headers));
+        HashMap<String,String> hr;     
+        
+        if(prefix!=null)        
+        {
+            hr = new HashMap(); 
+            for (Map.Entry<String, String> entry : headers.entrySet())                 
+                    hr.put(prefix + entry.getKey(), entry.getValue());
+            
+        }
+        else 
+            hr = headers;
+        
+        Request request = new Request(Method.HEAD, url, new Header(hr));        
         Response response = Client.call(request);
-        return response.getHeader();
+                                
+        if(prefix==null)        
+            return response.getHeader();
+        
+        hr = new HashMap();                
+        for (Map.Entry<String, String> entry : response.getHeader().entrySet()) 
+            if(entry.getKey()!=null && entry.getKey().toUpperCase().startsWith(prefix.toUpperCase()))
+                hr.put(entry.getKey().substring(prefix.length()), entry.getValue());
+        return hr;
     }
     
   
