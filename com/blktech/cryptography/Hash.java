@@ -15,10 +15,12 @@
 package com.blktech.cryptography;
 
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.security.Provider;
 import java.security.Security;
 import java.util.ArrayList;
 import java.util.HashMap;
+import javax.xml.bind.DatatypeConverter;
 
 /**
  *
@@ -57,36 +59,29 @@ public class Hash
 
     
     
-    
-    public Hash(String name) {
+    private String name;
+    private byte[] example;
+    private MessageDigest messageDigest;
+    public Hash(String name) throws NoSuchAlgorithmException 
+    {
+        this.name = name;
+        this.messageDigest = MessageDigest.getInstance(name);        
+        this.example = this.calc(new byte[0]);
     }
     
     
+    private byte[] calc(byte[] data) 
+    {
+        this.messageDigest.reset();
+        this.messageDigest.update(data);            
+        return this.messageDigest.digest(); 
+    }
     
-//
-//
-//    private $name;
-//    private $example;
-//    private function __construct($name)
-//    {
-//        $this->name = $name;
-//        
-//        if(!in_array($this->name, self::getAlgorithms()))
-//            throw new HashAlgorithmNotFoundException($this->name);
-//            
-//        $this->example = $this->calc('');
-//    }
-//
-//    public function calc($data)
-//    {        
-//        $t = hash($this->name, $data);
-//        
-//        if($t===false)
-//            throw new HashAlgorithmCalcException($data);
-//        
-//        return strtoupper($t);
-//    }
-//    
+    private String calc(String data) 
+    {        
+        return DatatypeConverter.printHexBinary(this.calc(data.getBytes()));
+    }    
+
 //    public function calcFile(File $file)
 //    {
 //        $t = hash_file($this->name, $file->__toString());
@@ -107,21 +102,33 @@ public class Hash
 //        return $this->calcFile($file) == strtoupper($hashValue);        
 //    }
 //
-//    public function checkHash($hashValue)
-//    {
-//        return strlen($hashValue) == strlen($this->example);
-//    }
-//    
-//    public function validateHash($hashValue)
-//    {        
-//        if(!$this->checkHash($hashValue))
-//            throw new InvalidHashValueException($hashValue);
-//    }
-//
-//    function getName()
-//    {
-//        return $this->name;
-//    }
+    public boolean checkHash(byte[] hashValue)
+    {
+        return hashValue.length == this.example.length;
+    }
+  
+    public boolean checkHash(String hashValue)
+    {
+        return this.checkHash(DatatypeConverter.parseHexBinary(hashValue));
+    }
+    
+    public void validateHash(byte[] hashValue) throws InvalidHashValueException
+    {        
+        if(this.checkHash(hashValue))
+            throw new InvalidHashValueException(hashValue);
+    }
+
+    public void validateHash(String hashValue) throws InvalidHashValueException
+    {
+        validateHash(DatatypeConverter.parseHexBinary(hashValue));
+    }
+                
+    public String getName()
+    {
+        return this.name;
+    }
+
+  
 
 
 }
