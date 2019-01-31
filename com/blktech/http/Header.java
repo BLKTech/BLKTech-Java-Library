@@ -5,17 +5,23 @@
  */
 package com.blktech.http;
 
-import java.net.HttpURLConnection;
+import com.blktech.datatype.HashMap;
+import java.util.Map;
 
 /**
  *
- * @author Lenovo
+ * @author instalacion
  */
-public class Response 
+class Header extends HashMap<String, String>
 {
 
-    Response(HttpURLConnection huc) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Header() 
+    {
+        super();
+    }
+
+    public Header(Map t) {
+        super(t);
     }
     
 }

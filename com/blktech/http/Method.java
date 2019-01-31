@@ -7,12 +7,17 @@ package com.blktech.http;
 
 /**
  *
- * @author Lenovo
+ * @author instalacion
  */
-public class Client 
-{
-    public static Response doRequest(Request.Type type)
-    {            
-        return null;
-    }
+public enum Method {
+    CONNECT,
+    DELETE,
+    GET,
+    HEAD,
+    OPTIONS,
+    PATCH,
+    POST,
+    PUT,
+    TRACE;
 }
+

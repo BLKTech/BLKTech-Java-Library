@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.blktech.types;
+package com.blktech.datatype;
 
 import java.net.MalformedURLException;
 import java.net.URLStreamHandler;
@@ -13,7 +13,7 @@ import java.util.HashMap;
  *
  * @author ASUS
  */
-public class URL
+public class URL 
 {
     private String protocol;
     private String user;

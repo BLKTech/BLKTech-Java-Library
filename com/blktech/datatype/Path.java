@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.blktech.types;
+package com.blktech.datatype;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -50,7 +50,7 @@ public class Path
 
     private Path(String[] elements) 
     {       
-        ArrayList<String> aux = new ArrayList<String>();
+        ArrayList<String> aux = new ArrayList<>();
                 
         for(String e : elements)
         {

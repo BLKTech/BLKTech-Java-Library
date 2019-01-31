@@ -9,7 +9,7 @@ package com.blktech.storage.filesystem;
  *
  * @author ASUS
  */
-public class Path extends com.blktech.types.Path
+public class Path extends com.blktech.datatype.Path
 {
 
     public Path(String path) 
