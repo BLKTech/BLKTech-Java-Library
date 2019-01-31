@@ -7,7 +7,7 @@ package com.blktech.storage.filesystem;
 
 /**
  *
- * @author ASUS
+ * @author The Kito < blankitoracing@gmail.com >
  */
 public class Path extends com.blktech.datatype.Path
 {

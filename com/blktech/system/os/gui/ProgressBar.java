@@ -7,7 +7,7 @@ package com.blktech.system.os.gui;
 
 /**
  *
- * @author ASUS
+ * @author The Kito < blankitoracing@gmail.com >
  */
 public class ProgressBar extends javax.swing.ProgressMonitor
 {

@@ -13,16 +13,14 @@
  */
 
 package com.blktech.datatype;
-
-
 import java.util.Map;
 import java.util.StringTokenizer;
 
-
-/**a
+/**
  *
- * @author The Blankis < blankitoracing@gmail.com >
+ * @author The Kito < blankitoracing@gmail.com >
  */
+
 public class HashMap<K,V> extends java.util.HashMap<K,V>
 {
 

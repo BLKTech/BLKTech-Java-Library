@@ -13,15 +13,14 @@
  */
 
 package com.blktech.datatype;
-
-
 import java.util.Collection;
 import java.util.Random;
 
 /**
  *
- * @author The Blankis < blankitoracing@gmail.com >
+ * @author The Kito < blankitoracing@gmail.com >
  */
+
 public class ArrayList<E> extends java.util.ArrayList<E>
 {
 

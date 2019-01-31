@@ -1,10 +1,18 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
  */
-package com.blktech.filesystem;
 
+package com.blktech.filesystem;
 import java.io.FileFilter;
 import java.net.URI;
 import com.blktech.Exception;
@@ -17,10 +25,12 @@ import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.bind.DatatypeConverter;
+
 /**
  *
- * @author ASUS
+ * @author The Kito < blankitoracing@gmail.com >
  */
+
 public class File extends FileSystem
 {
     public static final File getTemp() throws IOException, Exception{return new File(java.io.File.createTempFile("blk", "tmp").getAbsolutePath());}    
