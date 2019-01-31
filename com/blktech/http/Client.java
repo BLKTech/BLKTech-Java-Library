@@ -53,17 +53,18 @@ public class Client
                 
         
         int responseCode = huc.getResponseCode();
-        Header header = new Header(huc.getHeaderFields());
+        Header header = Header.getHeader(huc.getHeaderFields());
         data = null;
         
-        InputStream is = huc.getInputStream();
+        InputStream is = huc.getInputStream();        
         if(is.available()>0)
         {
             data = new byte[is.available()];
             is.read(data);
+            return new Response(responseCode, header, new String(data));
         }
         
-        return new Response(responseCode, header, new String(data));
+        return new Response(responseCode, header, null);
     }
     
     
@@ -90,7 +91,11 @@ public class Client
         hr = new HashMap();                
         for (Map.Entry<String, String> entry : response.getHeader().entrySet()) 
             if(entry.getKey()!=null && entry.getKey().toUpperCase().startsWith(prefix.toUpperCase()))
+            {
+                System.out.println(entry.getKey());
+                System.out.println(entry.getValue());
                 hr.put(entry.getKey().substring(prefix.length()), entry.getValue());
+            }
         return hr;
     }
     

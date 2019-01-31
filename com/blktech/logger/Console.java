@@ -34,7 +34,7 @@ public class Console implements ILogger{
     private static ILogger defaultLogger =null;
     public static PrintStream consoleOut=System.err;
     public static enum levels {FATAL, ERROR, WARN, INFO, DEBUG}
-    private levels level=levels.INFO;
+    private levels level=levels.DEBUG;
     private String logPath="/tmp/log/";
     private Console(Thread thread,String lModule){this.thisThread=thread;this.loggerModule=lModule;}
 
@@ -148,7 +148,7 @@ public class Console implements ILogger{
     public static String exceptionToString(Exception ex)
     {
         if (ex!=null)
-            return "("+ex.getMessage()+")" + separator + (getStackTrace(ex.getStackTrace()));
+            return "("+ex.getClass().getName() + ": " + ex.getMessage()+")" + separator + (getStackTrace(ex.getStackTrace()));
         else
             return "?";
     }
