@@ -5,7 +5,9 @@
  */
 package com.blktech.http;
 
-import java.net.URL;
+import com.blktech.datatype.URL;
+
+
 
 /**
  *

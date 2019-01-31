@@ -5,9 +5,12 @@
  */
 package com.blktech.http;
 
+import com.blktech.datatype.URL;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -63,6 +66,13 @@ public class Client
         return new Response(responseCode, header, new String(data));
     }
     
+    
+    public static HashMap<String,String> easyCall(URL url, HashMap<String,String> headers) throws IOException
+    {
+        Request request = new Request(Method.HEAD, url, new Header(headers));
+        Response response = Client.call(request);
+        return response.getHeader();
+    }
     
   
 }
