@@ -31,7 +31,7 @@ public class Hash
 {
 
     private static HashMap<String,Hash> instances = new HashMap<>();
-    public static Hash getAlgorithm(String name)
+    public static Hash getAlgorithm(String name) throws NoSuchAlgorithmException
     {
         name = name.toLowerCase();
         
@@ -70,14 +70,14 @@ public class Hash
     }
     
     
-    private byte[] calc(byte[] data) 
+    public byte[] calc(byte[] data) 
     {
         this.messageDigest.reset();
         this.messageDigest.update(data);            
         return this.messageDigest.digest(); 
     }
     
-    private String calc(String data) 
+    public String calc(String data) 
     {        
         return DatatypeConverter.printHexBinary(this.calc(data.getBytes()));
     }    
