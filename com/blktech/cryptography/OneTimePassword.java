@@ -14,6 +14,8 @@
 
 package com.blktech.cryptography;
 
+import javax.xml.bind.DatatypeConverter;
+
 /**
  *
  * @author The Kito < blankitoracing@gmail.com >
@@ -109,7 +111,9 @@ public class OneTimePassword
         if(this.currentPassword.length==0 || this.timeCurrent != timeCurrent)
         {
             this.timeCurrent = timeCurrent;                    
-            byte[] timeHash = this.hashAlgorithm.calc(com.blktech.datatype.ByteArray.fromLong(this.timeCurrent));                                    
+            byte[] timeHash = this.hashAlgorithm.calc(String.valueOf(this.timeCurrent).getBytes());       
+            System.out.print("Time Hash HEX:");
+            System.out.println(DatatypeConverter.printHexBinary(timeHash));
             this.currentPassword = this.hashAlgorithm.calc(combineBytes(this.passwordHash, timeHash));
         }
 
