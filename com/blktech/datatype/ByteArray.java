@@ -20,7 +20,7 @@ package com.blktech.datatype;
  * @author The Kito < blankitoracing@gmail.com >
  */
 
-public class Byte {
+public class ByteArray {
     public static byte[] fromLong(long l) {
         byte[] result = new byte[8];
         for (int i = 7; i >= 0; i--) {

@@ -102,14 +102,14 @@ public class OneTimePassword
         this.setTimeOffset(timeOffset);
         return getOneTimePassword();
     }    
-    private byte[] getOneTimePassword() 
+    public byte[] getOneTimePassword() 
     {                
         long timeCurrent = this.getSubTime();
         
         if(this.currentPassword.length==0 || this.timeCurrent != timeCurrent)
         {
             this.timeCurrent = timeCurrent;                    
-            byte[] timeHash = this.hashAlgorithm.calc(com.blktech.datatype.Byte.fromLong(this.timeCurrent));                                    
+            byte[] timeHash = this.hashAlgorithm.calc(com.blktech.datatype.ByteArray.fromLong(this.timeCurrent));                                    
             this.currentPassword = this.hashAlgorithm.calc(combineBytes(this.passwordHash, timeHash));
         }
 
