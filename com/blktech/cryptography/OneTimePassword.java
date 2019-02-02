@@ -14,8 +14,6 @@
 
 package com.blktech.cryptography;
 
-import javax.xml.bind.DatatypeConverter;
-
 /**
  *
  * @author The Kito < blankitoracing@gmail.com >
@@ -23,34 +21,21 @@ import javax.xml.bind.DatatypeConverter;
 
 public class OneTimePassword 
 {
-    private static byte[] combineBytes(byte[] passwordHash, byte[] timeHash)
-    {
-        byte result[] = new byte[passwordHash.length + timeHash.length + passwordHash.length];        
-            
-        System.arraycopy(passwordHash,  0, result,  0,                                      passwordHash.length);
-        System.arraycopy(timeHash,      0, result,  passwordHash.length,                    timeHash.length);
-        System.arraycopy(passwordHash,  0, result,  passwordHash.length + timeHash.length,  passwordHash.length);
-        
-        return result;
-    }
+
     
-    
-    private Hash hashAlgorithm;    
-    private byte[] passwordHash;
+    private final Hash hashAlgorithm;    
+    private final String passwordHash;
     
     private int timeDivider;       
     private long timeOffset;
     private long timeCurrent;
     
-    private byte[] currentPassword;
+    private String currentPassword;
     
     
     
+  
     public OneTimePassword(Hash hashAlgorithm, int timeDivider, String password, long timeOffset) 
-    {
-        this(hashAlgorithm, timeDivider, password.getBytes(), timeOffset);
-    }
-    public OneTimePassword(Hash hashAlgorithm, int timeDivider, byte[] password, long timeOffset) 
     {
         this.hashAlgorithm = hashAlgorithm;
         this.timeDivider = timeDivider;
@@ -69,7 +54,7 @@ public class OneTimePassword
         if(this.timeOffset != timeOffset)
         {
             this.timeOffset = timeOffset;
-            this.currentPassword = new byte[0];
+            this.currentPassword = null;
         }
     }
     private long getTime() 
@@ -88,7 +73,7 @@ public class OneTimePassword
         if(this.timeDivider != timeDivider)
         {
             this.timeDivider = timeDivider;
-            this.currentPassword = new byte[0];
+            this.currentPassword = null;
         }
     }
     private long getSubTime()
@@ -99,26 +84,39 @@ public class OneTimePassword
         
         
     
-    public byte[] getOneTimePassword(long timeOffset)
+    public String getOneTimePassword(long timeOffset)
     {
         this.setTimeOffset(timeOffset);
         return getOneTimePassword();
     }    
-    public byte[] getOneTimePassword() 
+    public String getOneTimePassword() 
     {                
         long timeCurrent = this.getSubTime();
         
-        if(this.currentPassword.length==0 || this.timeCurrent != timeCurrent)
+        if(this.currentPassword==null || this.timeCurrent != timeCurrent)
         {
             this.timeCurrent = timeCurrent;                    
-            byte[] timeHash = this.hashAlgorithm.calc(String.valueOf(this.timeCurrent).getBytes());       
-            System.out.print("Time Hash HEX:");
-            System.out.println(DatatypeConverter.printHexBinary(timeHash));
-            this.currentPassword = this.hashAlgorithm.calc(combineBytes(this.passwordHash, timeHash));
+            String timeHash = this.hashAlgorithm.calc(String.valueOf(this.timeCurrent));       
+
+            this.currentPassword = this.hashAlgorithm.calc(
+                    this.passwordHash +
+                    timeHash +
+                    this.passwordHash
+            );
         }
 
         return this.currentPassword;
     }    
     
-
+    public void debug()
+    {
+        System.out.println("============================================");
+        System.out.println("Time System: " + (System.currentTimeMillis() / 1000L));
+        System.out.println("Time Offset: " + this.getTime());
+        System.out.println("Time Part:   " + this.getSubTime());
+        System.out.println("Time Hash:   " + this.hashAlgorithm.calc(String.valueOf(this.getSubTime())));
+        System.out.println("Pass Hash:   " + this.passwordHash);
+        System.out.println("OTP  Hash:   " + this.getOneTimePassword());
+        System.out.println("============================================");
+    }
 }
