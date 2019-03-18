@@ -35,7 +35,7 @@ public class Console implements ILogger{
     public static PrintStream consoleOut=System.err;
     public static enum levels {FATAL, ERROR, WARN, INFO, DEBUG}
     private levels level=levels.DEBUG;
-    private String logPath="/tmp/log/";
+    private String logPath="/tmp/";
     private Console(Thread thread,String lModule){this.thisThread=thread;this.loggerModule=lModule;}
 
     /*
@@ -199,8 +199,8 @@ public class Console implements ILogger{
         }
         catch (Exception ex)
         {
-            System.err.println(ex.getMessage());
-            ex.printStackTrace();
+//            System.err.println(ex.getMessage());
+//            ex.printStackTrace();
         }
     }
 
